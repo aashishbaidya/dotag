@@ -45,13 +45,10 @@ def register_by_access_token(request, backend):
     # request.backend and request.strategy will be loaded with the current
     # backend and strategy.
     token = request.GET.get('access_token')
-    try:
-        user = request.backend.do_auth(token)
-        if user:
-            token, created = Token.objects.get_or_create(user=user)
-            # return Response({'token': token.key})
-            return JsonResponse({'status':200, 'token': token.key}, status=status.HTTP_202_ACCEPTED)
-        else:
-            return JsonResponse({'status': 401,'data':'Could not authenticate with facebook server. Access key Invalid.'}, status=status.HTTP_401_UNAUTHORIZED)
-    except:
-        return JsonResponse({'status':400 ,'data': 'Could not authenticate with facebook server.'}, status=status.HTTP_400_BAD_REQUEST)
+    user = request.backend.do_auth(token)
+    if user:
+        token, created = Token.objects.get_or_create(user=user)
+        # return Response({'token': token.key})
+        return JsonResponse({'status':200, 'token': token.key}, status=status.HTTP_202_ACCEPTED)
+    else:
+        return JsonResponse({'status': 401,'data':'Could not authenticate with facebook server. Access key Invalid.'}, status=status.HTTP_401_UNAUTHORIZED)
