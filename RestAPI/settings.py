@@ -29,7 +29,7 @@ APPSECRET_PROOF = False
 DEBUG = True
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ntc-naxa.herokuapp.com']
 
 
 # Application definition
